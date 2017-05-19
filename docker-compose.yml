@@ -1,0 +1,13 @@
+security_demo:
+  build: .
+  container_name: security_demo.colab
+  volumes:
+    - .:/var/www/
+  working_dir: /var/www/
+  external_links:
+    - mariadb:mariadb
+  ports:
+    - 8025:8025
+  environment:
+    - SHELL=bash
+    - VIRTUAL_HOST=malicious-site.colab innocent-site.colab
