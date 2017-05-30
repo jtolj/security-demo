@@ -11,7 +11,7 @@
     $result = $wpdb->get_results($query);
 
     echo "<h1>Here's a list of your entries!</h1>";
-    echo "<table>";
+    echo '<table class="table">';
     echo "<thead><tr><th>ID</th><th>Owner ID</th></th><th>Title</th><th>Status</th></tr></thead>";
     if (!empty($result)) {
       foreach ($result as $item) {
