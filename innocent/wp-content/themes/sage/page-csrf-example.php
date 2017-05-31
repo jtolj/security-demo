@@ -8,13 +8,17 @@
 
   <?php
     $comment_id = $_GET['comment_id'];
+
+    // $nonce = $_GET['token'];
+    // wp_verify_nonce($nonce, 'csrf-example');
+
     if (in_array('administrator',  wp_get_current_user()->roles) && !empty($comment_id)) {
       $query = "UPDATE wp_comments SET comment_approved = 1 WHERE comment_ID = %d";
       $sql = $wpdb->prepare($query, [$comment_id]);
       $wpdb->query($sql);
       echo "Comment has been approved!";
     }
-    else if (!in_array('administrator',  wp_get_current_user()->roles)){
+    else if (!in_array('administrator',  wp_get_current_user()->roles) && !empty($comment_id)){
       echo "You are not allowed to approve comments!";
     }
 
@@ -27,10 +31,18 @@
     $results = $wpdb->get_results($query);
   ?>
 
-  <ul>
+  <table class="table">
   <?php foreach ($results as $comment): ?>
-    <li>Comment: <?php echo $comment->comment_content ?> - <a href="/csrf-example?comment_id=<?php echo $comment->comment_ID ?>">Approve</a></li>
+    <tr>
+      <td>
+        Comment: <?php echo $comment->comment_content ?></td>
+      <td>
+        <a href="/csrf-example?comment_id=<?php echo $comment->comment_ID ?>">Approve</a>
+        <!--  <a href="/csrf-example?comment_id=<?php echo $comment->comment_ID ?>&token=<?php echo wp_create_nonce('csrf-example') ?>">Approve</a> -->
+      </td>
+    </tr>
+
   <?php endforeach ?>
-  </ul>
+  </table>
 
 <?php endwhile; ?>

@@ -8,6 +8,11 @@
     global $wpdb;
     $query = "SELECT * from wp_posts WHERE post_type = '{$type}' AND post_author = " . get_current_user_id();
     echo "Generated Query: <pre>{$query}</pre>";
+
+    // $sql = "SELECT * from wp_posts WHERE post_type = '{%s}' AND post_author = " . get_current_user_id();
+    // $query = $wpdb->prepare($sql, $type);
+    // echo "Parameterized Query:<br> <pre>{$query}</pre>";
+
     $result = $wpdb->get_results($query);
 
     echo "<h1>Here's a list of your entries!</h1>";
