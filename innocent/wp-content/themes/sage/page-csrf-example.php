@@ -9,9 +9,6 @@
   <?php
     $comment_id = $_GET['comment_id'];
 
-    // $nonce = $_GET['token'];
-    // wp_verify_nonce($nonce, 'csrf-example');
-
     if (in_array('administrator',  wp_get_current_user()->roles) && !empty($comment_id)) {
       $query = "UPDATE wp_comments SET comment_approved = 1 WHERE comment_ID = %d";
       $sql = $wpdb->prepare($query, [$comment_id]);
@@ -21,6 +18,22 @@
     else if (!in_array('administrator',  wp_get_current_user()->roles) && !empty($comment_id)){
       echo "You are not allowed to approve comments!";
     }
+
+    // if (in_array('administrator',  wp_get_current_user()->roles) && !empty($comment_id)) {
+    //   $nonce = $_GET['token'];
+    //   if (wp_verify_nonce($nonce, 'csrf-example')) {
+    //     $query = "UPDATE wp_comments SET comment_approved = 1 WHERE comment_ID = %d";
+    //     $sql = $wpdb->prepare($query, [$comment_id]);
+    //     $wpdb->query($sql);
+    //     echo "Comment has been approved!";
+    //   }
+    //   else {
+    //     echo "Don't be evil!";
+    //   }
+    // }
+    // else if (!in_array('administrator',  wp_get_current_user()->roles) && !empty($comment_id)){
+    //   echo "You are not allowed to approve comments!";
+    // }
 
 
   ?>
